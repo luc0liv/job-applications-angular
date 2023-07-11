@@ -5,36 +5,39 @@ import { catchError, retry } from 'rxjs/operators';
 import { Candidato } from './candidato';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class CandidatosService {
-  constructor(private http:HttpClient){};
+  constructor(private http: HttpClient) {}
 
   private urlStart = 'http://localhost:8080/api/v1/hiring/start';
   private urlSchedule = 'http://localhost:8080/api/v1/hiring/schedule';
-  private urlDisqualify = 'http://localhost:8080/api/v1/hiring/start';
+  private urlDisqualify = 'http://localhost:8080/api/v1/hiring/disqualify';
   private urlApprove = 'http://localhost:8080/api/v1/hiring/approve';
-  private urlGetApproved = 'http://localhost:8080/api/v1/hiring/approve';
-  private urlGetStatus = 'http://localhost:8080/api/v1/hiring/approve';
+  private urlGetApproved = 'http://localhost:8080/api/v1/hiring/approved';
+  private urlGetStatus = 'http://localhost:8080/api/v1/hiring/status/candidate/';
 
-  public startProcess(candidato: Candidato): Observable<any>{
-      return this.http.post<any>(this.urlStart, candidato);
+  public startProcess(candidato: Candidato): Observable<any> {
+    return this.http.post<any>(this.urlStart, candidato);
   }
 
-  public scheduleInterview(id: number): Observable<any>{
-      return this.http.post<any>(this.urlSchedule, {codCandidato: id});
+  public scheduleInterview(id: number): Observable<any> {
+    return this.http.post<any>(this.urlSchedule, { codCandidato: id });
   }
 
-  // public adicionaUsuario(usuario:Usuario): Observable<any>{
-  //     return this.http.post<Usuario>(this.urlApiUsuario, usuario);
-  // }
+  public qualifyCandidate(id: number): Observable<any> {
+    return this.http.post<any>(this.urlApprove, { codCandidato: id });
+  }
 
-  // public removeUsuario(id:number): Observable<any>{
-  //     return this.http.delete<Usuario>(this.urlApiUsuario+'?id='+id);
-  // }
+  public disqualifyCandidate(id: number): Observable<any> {
+    return this.http.post<any>(this.urlDisqualify, { codCandidato: id });
+  }
 
-  // public atualizaUsuario(usuario:Usuario): Observable<any>{
-  //     return this.http.put<Usuario>(this.urlApiUsuario, usuario);
-  // }
+  public getApprovedList(): Observable<any> {
+    return this.http.get<any>(this.urlGetApproved);
+  }
+
+  public getCandidateStatus(id: number): Observable<any> {
+    return this.http.get<any>(this.urlGetStatus+id);
+  }
 }
