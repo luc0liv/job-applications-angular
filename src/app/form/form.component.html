@@ -14,12 +14,5 @@
     <div *ngFor="let btn of buttons" ngClass="buttons-row">
       <button type="button" (click)="btn.func()">{{ btn.title }}</button>
     </div>
-    <p *ngIf="errorMessage">{{errorMessage}}</p>
-  </div>
-  <div>
-    <button type="button" (click)="getApprovedList()">Listar aprovados</button>
-  </div>
-  <div *ngIf="aprovados.length">
-    <p *ngFor="let ap of aprovados">{{ap}}</p>
   </div>
 </form>

@@ -14,7 +14,6 @@ export class CandidatosService {
   private urlSchedule = 'http://localhost:8080/api/v1/hiring/schedule';
   private urlDisqualify = 'http://localhost:8080/api/v1/hiring/disqualify';
   private urlApprove = 'http://localhost:8080/api/v1/hiring/approve';
-  private urlGetApproved = 'http://localhost:8080/api/v1/hiring/approved';
   private urlGetStatus = 'http://localhost:8080/api/v1/hiring/status/candidate/';
 
   public startProcess(candidato: Candidato): Observable<any> {
@@ -33,9 +32,9 @@ export class CandidatosService {
     return this.http.post<any>(this.urlDisqualify, { codCandidato: id });
   }
 
-  public getApprovedList(): Observable<any> {
-    return this.http.get<any>(this.urlGetApproved);
-  }
+  // public getApprovedList(): Observable<any> {
+  //   return this.http.get<any>(this.urlGetApproved);
+  // }
 
   public getCandidateStatus(id: number): Observable<any> {
     return this.http.get<any>(this.urlGetStatus+id);

@@ -1,6 +1,6 @@
-import { CandidatosService } from './../config/config.service';
+import { CandidatosService } from '../app.service';
 import { Component } from '@angular/core';
-import { Candidato } from '../config/candidato';
+import { Candidato } from '../candidato';
 
 @Component({
   selector: 'app-form',
@@ -13,12 +13,9 @@ export class FormComponent {
   ) {}
 
   public candidato: Candidato = new Candidato();
-  public isCreated: boolean = false;
-  public errorMessage: string = '';
   public codCandidato: number = 0;
-  public aprovados: string[] = [];
 
-  public buttons = [
+  public buttons: { title: string, func: () => void, className: string }[] = [
     {
       title: 'Marcar entrevista',
       func: this.scheduleInterview.bind(this),
@@ -42,7 +39,6 @@ export class FormComponent {
   ];
 
   createCandidate(): void {
-    this.errorMessage = '';
     this.candidatosService.startProcess(this.candidato).subscribe(
       (res) => {
         alert('Candidato cadastrado');
@@ -55,7 +51,6 @@ export class FormComponent {
   }
 
   scheduleInterview(): void {
-    this.errorMessage = '';
     this.candidatosService.scheduleInterview(this.candidato.codCandidato as number).subscribe(
       (res) => {
         alert(res.message);
@@ -67,7 +62,6 @@ export class FormComponent {
   }
 
   checkStatus(): void {
-    this.errorMessage = '';
     this.candidatosService.getCandidateStatus(this.candidato.codCandidato as number).subscribe(
       (res) => {
         alert(`O status do Candidato é: ${res.status}`);
@@ -79,37 +73,23 @@ export class FormComponent {
   }
 
   disqualifyCandidate(): void {
-    this.errorMessage = '';
     this.candidatosService.disqualifyCandidate(this.candidato.codCandidato as number).subscribe(
       (res) => {
         alert(res.message);
       },
       (error) => {
-        this.errorMessage = error.error.message;
+        alert(error.error.message);
       }
     );
   }
 
   qualifyCandidate(): void {
-    this.errorMessage = '';
     this.candidatosService.qualifyCandidate(this.candidato.codCandidato as number).subscribe(
       (res) => {
         alert(res.message);
       },
       (error) => {
-        this.errorMessage = error.error.message;
-      }
-    );
-  }
-
-  getApprovedList(): void {
-    this.errorMessage = '';
-    this.candidatosService.getApprovedList().subscribe(
-      (res) => {
-        this.aprovados = res;
-      },
-      (error) => {
-        this.errorMessage = error.error.message;
+        alert(error.error.message);
       }
     );
   }
