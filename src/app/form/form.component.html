@@ -1,0 +1,20 @@
+<form>
+  <div>
+    <label for="nome">
+      Nome
+    </label>
+    <input id="nome" type="text" name="nome" [(ngModel)]="candidato.nome">
+    <button type="button" (click)="createCandidate()">Adicionar</button>
+    <!-- <p *ngIf="errorMessage">{{errorMessage}}</p> -->
+  </div>
+  <div>
+    <label for="codCandidato">
+      Código do candidato
+    </label>
+    <input id="codCandidato" type="text" name="codCandidato" [(ngModel)]="codCandidato">
+    <div *ngFor="let btn of buttons" ngClass="buttons-row">
+      <button type="button" (click)="btn.func()">{{ btn.title }}</button>
+    </div>
+    <p *ngIf="errorMessage">{{errorMessage}}</p>
+  </div>
+</form>
