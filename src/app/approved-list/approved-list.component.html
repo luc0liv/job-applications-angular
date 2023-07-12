@@ -1,0 +1,6 @@
+<div>
+  <button type="button" (click)="getApprovedList()">Listar aprovados</button>
+</div>
+<div *ngIf="aprovados.length">
+  <p *ngFor="let ap of aprovados">{{ap}}</p>
+</div>
