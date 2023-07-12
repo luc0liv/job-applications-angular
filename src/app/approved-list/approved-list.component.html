@@ -1,0 +1,6 @@
+<div ngClass="list-container">
+  <button type="button" ngClass="list-btn" (click)="getApprovedList()">Listar aprovados</button>
+  <div *ngIf="aprovados" ngClass="approved-list">
+    <p *ngFor="let ap of aprovados" ngClass="approved-name">{{ap}}</p>
+  </div>
+</div>
