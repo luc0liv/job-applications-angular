@@ -1,18 +1,18 @@
-<form>
-  <div>
+<form ngClass="form-container">
+  <div ngClass="create-container">
     <label for="nome">
       Nome
     </label>
     <input id="nome" type="text" name="nome" [(ngModel)]="candidato.nome">
-    <button type="button" (click)="createCandidate()">Adicionar</button>
+    <button type="button" ngClass="add-button" (click)="createCandidate()">Adicionar</button>
   </div>
-  <div>
+  <div ngClass="code-container">
     <label for="codCandidato">
       Código do candidato
     </label>
     <input id="codCandidato" type="text" name="codCandidato" [(ngModel)]="candidato.codCandidato">
-    <div *ngFor="let btn of buttons" ngClass="buttons-row">
-      <button type="button" (click)="btn.func()">{{ btn.title }}</button>
+    <div ngClass="buttons-row">
+      <button *ngFor="let btn of buttons" type="button" [ngClass]="btn.className" (click)="btn.func()">{{ btn.title }}</button>
     </div>
   </div>
 </form>

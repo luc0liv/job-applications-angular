@@ -19,22 +19,22 @@ export class FormComponent {
     {
       title: 'Marcar entrevista',
       func: this.scheduleInterview.bind(this),
-      className: '',
+      className: 'schedule-btn',
     },
     {
       title: 'Qualificar Candidato',
       func: this.qualifyCandidate.bind(this),
-      className: '',
+      className: 'qualify-btn',
     },
     {
       title: 'Desqualificar candidato',
       func: this.disqualifyCandidate.bind(this),
-      className: '',
+      className: 'disqualify-btn',
     },
     {
       title: 'Verificar Status',
       func: this.checkStatus.bind(this),
-      className: '',
+      className: 'status-btn',
     },
   ];
 
