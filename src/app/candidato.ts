@@ -12,4 +12,8 @@ export class Candidato {
   public setNome(nome: string | null) {
     return this.nome = nome;
   }
+
+  public setCodCandidato(codCandidato: number | null) {
+    return this.codCandidato = codCandidato;
+  }
 }

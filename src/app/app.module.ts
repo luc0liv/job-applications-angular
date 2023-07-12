@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FormComponent } from './form/form.component';
+import { ApprovedListComponent } from './approved-list/approved-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FormComponent
+    FormComponent,
+    ApprovedListComponent
   ],
   imports: [
     BrowserModule,

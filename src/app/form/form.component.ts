@@ -1,30 +1,21 @@
-import { CandidatosService } from './../config/config.service';
+import { CandidatosService } from '../app.service';
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Candidato } from '../config/candidato';
+import { Candidato } from '../candidato';
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.sass']
+  styleUrls: ['./form.component.sass'],
 })
 export class FormComponent {
-  applicationForm = this.formBuilder.group({
-    nome: '',
-    codCandidato: 0,
-  });
-
   constructor(
-    private formBuilder: FormBuilder,
-    private candidatosService: CandidatosService,
-    ) {}
+    private candidatosService: CandidatosService
+  ) {}
 
   public candidato: Candidato = new Candidato();
-  public isCreated: boolean = false;
-  public errorMessage: string = '';
   public codCandidato: number = 0;
 
-  public buttons = [
+  public buttons: { title: string, func: () => void, className: string }[] = [
     {
       title: 'Marcar entrevista',
       func: this.scheduleInterview.bind(this),
@@ -44,49 +35,62 @@ export class FormComponent {
       title: 'Verificar Status',
       func: this.checkStatus.bind(this),
       className: '',
-    }
-  ]
-
+    },
+  ];
 
   createCandidate(): void {
-    this.errorMessage = "";
     this.candidatosService.startProcess(this.candidato).subscribe(
-      resposta => {
-     alert("Candidato cadastrado")
-     console.log(resposta);
-
-     this.isCreated = true;
-   },
-   error => {
-     this.errorMessage = error.error.message;
-     console.log(error.error.message);
-   });
+      (res) => {
+        alert('Candidato cadastrado');
+        this.candidato.setCodCandidato(res.codCandidato);
+      },
+      (error) => {
+        alert(error.error.message);
+      }
+    );
   }
 
   scheduleInterview(): void {
-    this.errorMessage = "";
-    this.candidatosService.scheduleInterview(this.codCandidato).subscribe(
-      resposta => {
-        alert(resposta.message)
+    this.candidatosService.scheduleInterview(this.candidato.codCandidato as number).subscribe(
+      (res) => {
+        alert(res.message);
       },
-      error => {
-        this.errorMessage = error.error.message;
+      (error) => {
+        alert(error.error.message);
       }
-    )
+    );
   }
 
   checkStatus(): void {
-    this.errorMessage = "";
-    console.log(this.codCandidato);
+    this.candidatosService.getCandidateStatus(this.candidato.codCandidato as number).subscribe(
+      (res) => {
+        alert(`O status do Candidato é: ${res.status}`);
+      },
+      (error) => {
+        alert(error.error.message);
+      }
+    );
   }
 
   disqualifyCandidate(): void {
-    this.errorMessage = "";
-    console.log("disqualify")
+    this.candidatosService.disqualifyCandidate(this.candidato.codCandidato as number).subscribe(
+      (res) => {
+        alert(res.message);
+      },
+      (error) => {
+        alert(error.error.message);
+      }
+    );
   }
 
   qualifyCandidate(): void {
-    this.errorMessage = "";
-    console.log("qualify")
+    this.candidatosService.qualifyCandidate(this.candidato.codCandidato as number).subscribe(
+      (res) => {
+        alert(res.message);
+      },
+      (error) => {
+        alert(error.error.message);
+      }
+    );
   }
 }
